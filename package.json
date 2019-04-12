@@ -1,8 +1,8 @@
 {
-  "name": "tocca-shopping-app",
+  "name": "nuxt-zakiyama-app",
   "version": "1.0.0",
-  "description": "My bee&#39;s knees Nuxt.js project",
-  "author": "h_yamasaki",
+  "description": "My swell Nuxt.js project",
+  "author": "zakiyama",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
+    "firebase": "^5.9.2",
+    "lodash.clonedeep": "^4.5.0",
     "nuxt": "^2.4.0",
+    "vue-toasted": "^1.1.26",
+    "vuedraggable": "^2.20.0",
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1"
   },

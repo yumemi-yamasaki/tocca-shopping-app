@@ -1,5 +1,6 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import pkg from './package'
+import { auth } from 'firebase';
 
 export default {
   mode: 'spa',
@@ -40,7 +41,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
+    '~/plugins/toasted'
   ],
 
   /*
@@ -48,6 +50,10 @@ export default {
   */
   modules: [
   ],
+
+  router: {
+    middleware: 'auth'
+  },
 
   /*
   ** Build configuration
@@ -65,5 +71,8 @@ export default {
     */
     extend(config, ctx) {
     }
-  }
+  },
+  generate: {
+    dir: './firebase/public'
+ }
 }
