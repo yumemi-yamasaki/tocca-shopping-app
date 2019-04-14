@@ -30,6 +30,14 @@
       <v-toolbar-title>TOCCA</v-toolbar-title>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </v-toolbar>
+    <v-content>
+        <div class="main">
+            <Itemlist list-name="野菜" @addItem="popupModalVegetable" :list="this.$store.state.itemList.vegetable"/>
+            <Itemlist list-name="お肉" @addItem="popupModalMeat" :list="this.$store.state.itemList.meat"/>
+            <Itemlist list-name="その他（乳製品等）" @addItem="popupModalOthers" :list="this.$store.state.itemList.others"/>
+        </div>
+        <Popupmodal v-if="showModal" @closeModal="closeModal" @addItem="addItemToStore"/>
+    </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
       <span class="white--text">&copy;ひかチャン！</span>
@@ -38,20 +46,99 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Itemlist from '~/components/Itemlist';
+import Popupmodal from '~/components/PopupModal';
+
   export default {
-    data: () => ({
-      drawer: null
-    }),
+    components: {
+        Itemlist,
+        Popupmodal
+    },
+    data: () => {
+        return {
+            drawer: null,
+            showModal: false,
+            itemList: {}
+        }
+    },
     props: {
       source: String
     },
+    computed: {
+        // ...mapState(['itemList'])
+    },
     methods: {
-      toHome() {
-        console.log('Go to Home.');
-      },
-      toContact() {
-        console.log('Go to Contact.');
-      }
+        popupModalVegetable() {
+            this.showModal = true;
+            console.log('野菜を追加するポップアップ');
+            this.$store.dispatch('setItemVegetable')
+        },
+        popupModalMeat() {
+            this.showModal = true;
+            console.log('お肉を追加するポップアップ');
+        },
+        popupModalOthers() {
+            this.showModal = true;
+            console.log('その他を追加するポップアップ');
+        },
+        closeModal() {
+            this.showModal = false;
+        },
+        addItemToStore() {
+            this.showModal = false;
+            console.log('追加OK');
+        },
+        toHome() {
+            console.log('Go to Home.');
+        },
+        toContact() {
+            console.log('Go to Contact.');
+        }
     }
   }
 </script>
+
+<style>
+p {
+    margin: 0;
+}
+.page-title {
+    text-align: center;
+    margin: 10px;
+}
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #555;
+}
+
+.item-name {
+    font-size: 1.3rem;
+}
+
+.item-price {
+    font-size: 1.3rem;
+}
+
+/* ポップアップスタイル */
+.popup {
+    width: 300px;
+    /* height: 350px; */
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #fff;
+    margin-bottom: 100px;
+}
+
+/* ボタン */
+.btn-area {
+    display: flex;
+    justify-content: space-between;
+}
+</style>

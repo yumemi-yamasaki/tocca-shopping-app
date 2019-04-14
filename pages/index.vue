@@ -42,7 +42,13 @@ export default {
 </script>
 
 <style>
+.application--wrap {
+  background: #00b4ce;
+}
 .login {
+  background: #fff;
+  width: 300px;
+  margin: 200px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
