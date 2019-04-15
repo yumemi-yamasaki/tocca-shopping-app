@@ -19,6 +19,10 @@ export default {
       default: function () {
         return { name: '', price: '' }
       }
+    },
+    index: {
+      type: Number,
+      default: ''
     }
   },
   computed: {

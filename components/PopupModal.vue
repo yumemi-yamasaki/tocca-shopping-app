@@ -4,9 +4,9 @@
             <div class="modal-wrapper">
                 <div class="modal-container">
                     <p>（入力例）トマト, 鶏ムネ肉100g</p>
-                    <v-text-field v-model="item.name" label="商品名"></v-text-field>
+                    <v-text-field v-model="item.name" label="商品名" @change="inputCard"/>
                     <p>（入力例）98,108  ※金額のみ</p>
-                    <v-text-field v-model="item.price" label="価格"></v-text-field>
+                    <v-text-field v-model="item.price" label="価格" @change="inputCard"/>
                     <div class="btn-area">
                         <v-btn depressed dark color="#ed6c61" class="p-btn" @click="$emit('closeModal')">
                             <v-icon>close</v-icon>
@@ -41,6 +41,9 @@ export default {
   computed: {
   },
   methods: {
+      inputCard() {
+          this.$emit('addItemCard');
+      },
       close() {
           console.log('Close');
       },

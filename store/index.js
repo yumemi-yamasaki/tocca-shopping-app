@@ -62,10 +62,6 @@ const createStore = () => {
          },
          setItemVegetable(store, payload) {
             store.commit('setItemVegetable', payload);
-         },
-         // リストへアイテムを追加
-         addItemToLists(store, payload) {
-            store.commit('addItemToLists', payload);
          }
       }
    })

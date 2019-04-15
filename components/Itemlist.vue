@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <h2 class="list-name">{{ listName }}</h2>
-        <Itemcard v-for="(item, index) in list" :key="index" :item="item" @removeItem="removeItemfromList"/>
+        <Itemcard v-for="(item, index) in list" :key="index" :item="item" :index="index" @removeItem="removeItemfromList"/>
         <v-btn small fab depressed dark color="indigo" class="p-btn" @click="$emit('addItem')">
             <v-icon>add</v-icon>
         </v-btn>
@@ -30,6 +30,7 @@ export default {
   },
   methods: {
       removeItemfromList(index) {
+          this.list.splice(index, 1);
           console.log('OK');
       }
   }

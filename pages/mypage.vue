@@ -32,11 +32,11 @@
     </v-toolbar>
     <v-content>
         <div class="main">
-            <Itemlist list-name="野菜" @addItem="popupModalVegetable" :list="this.$store.state.itemList.vegetable"/>
-            <Itemlist list-name="お肉" @addItem="popupModalMeat" :list="this.$store.state.itemList.meat"/>
+            <Itemlist list-name="野菜/果物" @addItem="popupModalVegetable" :list="this.$store.state.itemList.vegetable"/>
+            <Itemlist list-name="お肉/お魚" @addItem="popupModalMeat" :list="this.$store.state.itemList.meat"/>
             <Itemlist list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.$store.state.itemList.others"/>
         </div>
-        <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore"/>
+        <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore" :addItemCard="addItemCard"/>
     </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
@@ -94,6 +94,9 @@ import Popupmodal from '~/components/PopupModal';
         },
         toContact() {
             console.log('Go to Contact.');
+        },
+        beforeMount() {
+          this.copiedItemList = closedeep(this.itemList);
         }
     }
   }
