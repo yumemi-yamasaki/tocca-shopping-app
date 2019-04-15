@@ -2,6 +2,9 @@
   <div>
     <div class="item">
       <p class="item-name">{{ item.name }}</p><p class="item-price">{{ item.price }}円</p>
+      <v-btn depressed small color="error" @click="removeItem">
+        <v-icon>clear</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -20,7 +23,11 @@ export default {
   },
   computed: {
   },
-  methods: {}
+  methods: {
+    removeItem(index) {
+      this.$emit('removeItem', this.index);
+    }
+  }
 }
 </script>
 

@@ -48,19 +48,13 @@ const createStore = () => {
             name: payload.name,
             price: payload.price
           })
-      },
-      setItemOthers(state, payload) {
+         },
+         setItemOthers(state, payload) {
          state.itemList.others.push({
             name: payload.name,
             price: payload.price
           })
-      }
-      //   addItemToLists(state, payload) {
-      //      state.itemList.itemList.push({
-      //         name: payload.name,
-      //         price: payload.price
-      //       })
-      //   }
+         }
       },
       actions: {
          setAuth(store, payload) {

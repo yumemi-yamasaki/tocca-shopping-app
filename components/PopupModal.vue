@@ -3,10 +3,10 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-                    <p>商品名（入力例.トマト, 鶏ムネ肉100g）</p>
-                    <v-textarea solo v-model="item.name"/>
-                    <p>価格（入力例.98, 108）</p>
-                    <v-textarea solo v-model="item.price"/>
+                    <p>（入力例）トマト, 鶏ムネ肉100g</p>
+                    <v-text-field v-model="item.name" label="商品名"></v-text-field>
+                    <p>（入力例）98,108  ※金額のみ</p>
+                    <v-text-field v-model="item.price" label="価格"></v-text-field>
                     <div class="btn-area">
                         <v-btn depressed dark color="#ed6c61" class="p-btn" @click="$emit('closeModal')">
                             <v-icon>close</v-icon>
