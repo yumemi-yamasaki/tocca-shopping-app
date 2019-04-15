@@ -42,7 +42,25 @@ const createStore = () => {
               name: payload.name,
               price: payload.price
             })
-        }
+        },
+        setItemMeat(state, payload) {
+         state.itemList.meat.push({
+            name: payload.name,
+            price: payload.price
+          })
+      },
+      setItemOthers(state, payload) {
+         state.itemList.others.push({
+            name: payload.name,
+            price: payload.price
+          })
+      }
+      //   addItemToLists(state, payload) {
+      //      state.itemList.itemList.push({
+      //         name: payload.name,
+      //         price: payload.price
+      //       })
+      //   }
       },
       actions: {
          setAuth(store, payload) {
@@ -50,6 +68,10 @@ const createStore = () => {
          },
          setItemVegetable(store, payload) {
             store.commit('setItemVegetable', payload);
+         },
+         // リストへアイテムを追加
+         addItemToLists(store, payload) {
+            store.commit('addItemToLists', payload);
          }
       }
    })

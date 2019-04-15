@@ -34,9 +34,9 @@
         <div class="main">
             <Itemlist list-name="野菜" @addItem="popupModalVegetable" :list="this.$store.state.itemList.vegetable"/>
             <Itemlist list-name="お肉" @addItem="popupModalMeat" :list="this.$store.state.itemList.meat"/>
-            <Itemlist list-name="その他（乳製品等）" @addItem="popupModalOthers" :list="this.$store.state.itemList.others"/>
+            <Itemlist list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.$store.state.itemList.others"/>
         </div>
-        <Popupmodal v-if="showModal" @closeModal="closeModal" @addItem="addItemToStore"/>
+        <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore"/>
     </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
@@ -59,7 +59,8 @@ import Popupmodal from '~/components/PopupModal';
         return {
             drawer: null,
             showModal: false,
-            itemList: {}
+            itemList: {},
+            itemKind: ""
         }
     },
     props: {
@@ -70,17 +71,16 @@ import Popupmodal from '~/components/PopupModal';
     },
     methods: {
         popupModalVegetable() {
+            this.itemKind = "vegetable"
             this.showModal = true;
-            console.log('野菜を追加するポップアップ');
-            this.$store.dispatch('setItemVegetable')
         },
         popupModalMeat() {
+            this.itemKind = "meat"
             this.showModal = true;
-            console.log('お肉を追加するポップアップ');
         },
         popupModalOthers() {
+            this.itemKind = "others"
             this.showModal = true;
-            console.log('その他を追加するポップアップ');
         },
         closeModal() {
             this.showModal = false;

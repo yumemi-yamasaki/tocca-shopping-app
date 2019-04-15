@@ -4,14 +4,14 @@
             <div class="modal-wrapper">
                 <div class="modal-container">
                     <p>商品名（入力例.トマト, 鶏ムネ肉100g）</p>
-                    <v-textarea solo/>
+                    <v-textarea solo v-model="item.name"/>
                     <p>価格（入力例.98, 108）</p>
-                    <v-textarea solo/>
+                    <v-textarea solo v-model="item.price"/>
                     <div class="btn-area">
                         <v-btn depressed dark color="#ed6c61" class="p-btn" @click="$emit('closeModal')">
                             <v-icon>close</v-icon>
                         </v-btn>
-                        <v-btn depressed dark color="#62c655" class="p-btn" @click="$emit('addItem')">
+                        <v-btn depressed dark color="#62c655" class="p-btn" @click="addItem">
                             <p>追加</p>
                         </v-btn>
                     </div>
@@ -25,7 +25,18 @@
 export default {
   components: {
   },
+  data() {
+      return {
+          item: {
+              name: '',
+              price: ''
+          }
+      }
+  },
   props: {
+      itemKind: {
+          type: String
+      }
   },
   computed: {
   },
@@ -33,8 +44,17 @@ export default {
       close() {
           console.log('Close');
       },
-      add() {
-          console.log('OK');
+      addItem() {
+          console.log(this.item.name);
+          console.log(this.item.price);
+          if (this.itemKind == 'vegetable') {
+              this.$store.commit('setItemVegetable', this.item)
+          } else if(this.itemKind == 'meat') {
+              this.$store.commit('setItemMeat', this.item)
+          } else if(this.itemKind == 'others') {
+              this.$store.commit('setItemOthers', this.item)
+          }
+          this.$emit('addItem')
       }
   }
 }
