@@ -117,14 +117,19 @@ p {
     margin-right: 20px;
     padding: 5px;
     border-bottom: 1px solid #555;
+    min-height: 51px;
 }
 
 .item-name {
     font-size: 1.3rem;
+    display: flex;
+    align-items: center;
 }
 
 .item-price {
     font-size: 1.3rem;
+    display: flex;
+    align-items: center;
 }
 
 /* ポップアップスタイル */
