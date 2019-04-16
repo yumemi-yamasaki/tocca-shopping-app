@@ -32,11 +32,11 @@
     </v-toolbar>
     <v-content>
         <div class="main">
-            <Itemlist list-name="野菜/果物" @addItem="popupModalVegetable" :list="this.$store.state.itemList.vegetable"/>
-            <Itemlist list-name="お肉/お魚" @addItem="popupModalMeat" :list="this.$store.state.itemList.meat"/>
-            <Itemlist list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.$store.state.itemList.others"/>
+            <Itemlist list-name="野菜/果物" @addItem="popupModalVegetable" :list="this.itemList.vegetable"/>
+            <Itemlist list-name="お肉/お魚" @addItem="popupModalMeat" :list="this.itemList.meat"/>
+            <Itemlist list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.itemList.others"/>
         </div>
-        <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore" :addItemCard="addItemCard"/>
+        <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore"/>
     </v-content>
     <v-footer color="cyan" app>
       <v-spacer></v-spacer>
@@ -49,7 +49,7 @@
 import { mapState } from 'vuex';
 import Itemlist from '~/components/Itemlist';
 import Popupmodal from '~/components/PopupModal';
-
+import clonedeep from 'lodash.clonedeep';
   export default {
     components: {
         Itemlist,
@@ -59,7 +59,7 @@ import Popupmodal from '~/components/PopupModal';
         return {
             drawer: null,
             showModal: false,
-            itemList: {},
+            // itemList: {},
             itemKind: ""
         }
     },
@@ -67,7 +67,7 @@ import Popupmodal from '~/components/PopupModal';
       source: String
     },
     computed: {
-        // ...mapState(['itemList'])
+        ...mapState(['itemList'])
     },
     methods: {
         popupModalVegetable() {
@@ -94,10 +94,10 @@ import Popupmodal from '~/components/PopupModal';
         },
         toContact() {
             console.log('Go to Contact.');
-        },
-        beforeMount() {
-          this.copiedItemList = closedeep(this.itemList);
         }
+    },
+    beforeMount() {
+      this.copiedItemList = clonedeep(this.itemList);
     }
   }
 </script>

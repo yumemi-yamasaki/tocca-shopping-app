@@ -41,6 +41,7 @@ export default {
       }
     },
     deleteItemCard() {
+      // this.showDleteBth();
       this.$emit('deleteItemCard', this.index);
       // this.$store.dispatch('deleteItemCard', this.index);
     }

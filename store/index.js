@@ -62,6 +62,10 @@ const createStore = () => {
          },
          setItemVegetable(store, payload) {
             store.commit('setItemVegetable', payload);
+         },
+         // 野菜をセット
+         setItemVegetable(store, payload) {
+            store.commit('setItemVegetable', payload)
          }
       }
    })
