@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="item">
+    <div class="item" @click="showDleteBth">
       <p class="item-name">{{ item.name }}</p><p class="item-price">{{ item.price }}円</p>
-      <v-btn depressed small color="error" @click="removeItem">
+      <v-btn v-if="showDeleteFlg" depressed small color="error" @click="deleteItemCard">
         <v-icon>clear</v-icon>
       </v-btn>
     </div>
@@ -25,11 +25,24 @@ export default {
       default: ''
     }
   },
+  data() {
+     return {
+       showDeleteFlg: false
+     };
+  },
   computed: {
   },
   methods: {
-    removeItem(index) {
-      this.$emit('removeItem', this.index);
+    showDleteBth() {
+      if(this.showDeleteFlg) {
+        this.showDeleteFlg = false;
+      } else {
+        this.showDeleteFlg = true;
+      }
+    },
+    deleteItemCard() {
+      this.$emit('deleteItemCard', this.index);
+      // this.$store.dispatch('deleteItemCard', this.index);
     }
   }
 }
