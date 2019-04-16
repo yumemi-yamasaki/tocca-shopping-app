@@ -54,18 +54,33 @@ const createStore = () => {
             name: payload.name,
             price: payload.price
           })
+         },
+         deleteItemCard(state, payload) {
+            state.itemList[payload.itemKind].splice(payload.index, 1);
+            // console.log(state.itemList[payload.itemKind]);
          }
       },
       actions: {
          setAuth(store, payload) {
              store.commit('setAuth', payload);
          },
+         // 野菜をセット
          setItemVegetable(store, payload) {
             store.commit('setItemVegetable', payload);
          },
-         // 野菜をセット
-         setItemVegetable(store, payload) {
-            store.commit('setItemVegetable', payload)
+         // お肉・お魚をセット
+         setItemMeat(store, payload) {
+            store.commit('setItemMeat', payload);
+         },
+         // その他
+         setItemOthers(store, payload) {
+            store.commit('setItemOthers', payload);
+         },
+         deleteItemCard(store, payload) {
+            // console.log(payload);
+            // console.log(index);
+            store.commit('deleteItemCard', payload);
+            // console.log(payload);
          }
       }
    })

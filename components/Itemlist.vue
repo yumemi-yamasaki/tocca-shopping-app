@@ -1,7 +1,7 @@
 <template>
-    <div class="">
+    <div>
         <h2 class="list-name">{{ listName }}</h2>
-        <Itemcard v-for="(item, index) in list" :key="index" :item="item" :index="index" @removeItem="removeItemfromList" @deleteItemCard="deleteItemCard"/>
+        <Itemcard v-for="(item, index) in list" :key="index" :item="item" :index="index" @deleteItemCard="deleteItemCard"/>
         <v-btn small fab depressed dark color="indigo" class="p-btn" @click="$emit('addItem')">
             <v-icon>add</v-icon>
         </v-btn>
@@ -23,6 +23,10 @@ export default {
       listName: {
           type: String,
           default: ''
+      },
+      itemKind: {
+          type: String,
+          default: ''
       }
   },
   computed: {
@@ -34,7 +38,10 @@ export default {
           console.log('OK');
       },
       deleteItemCard(index) {
-          //
+        //   console.log(index);
+        // console.log(this.itemKind);
+        this.$emit('deleteItemCard', { itemKind: this.itemKind, index: index });
+        // console.log(this.itemKind);
       }
   }
 }

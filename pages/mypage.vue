@@ -32,9 +32,9 @@
     </v-toolbar>
     <v-content>
         <div class="main">
-            <Itemlist list-name="野菜/果物" @addItem="popupModalVegetable" :list="this.itemList.vegetable"/>
-            <Itemlist list-name="お肉/お魚" @addItem="popupModalMeat" :list="this.itemList.meat"/>
-            <Itemlist list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.itemList.others"/>
+            <Itemlist item-kind="vegetable" list-name="野菜/果物" @addItem="popupModalVegetable" :list="this.itemList.vegetable" @deleteItemCard="deleteItemCard"/>
+            <Itemlist item-kind="meat" list-name="お肉/お魚" @addItem="popupModalMeat" :list="this.itemList.meat" @deleteItemCard="deleteItemCard"/>
+            <Itemlist item-kind="others" list-name="その他（乳製品,調味料など）" @addItem="popupModalOthers" :list="this.itemList.others" @deleteItemCard="deleteItemCard"/>
         </div>
         <Popupmodal v-if="showModal" :itemKind="this.itemKind" @closeModal="closeModal" @addItem="addItemToStore"/>
     </v-content>
@@ -70,16 +70,19 @@ import clonedeep from 'lodash.clonedeep';
         ...mapState(['itemList'])
     },
     methods: {
+        deleteItemCard(value) {
+          this.$store.dispatch('deleteItemCard', value);
+        },
         popupModalVegetable() {
-            this.itemKind = "vegetable"
+            this.itemKind = "vegetable";
             this.showModal = true;
         },
         popupModalMeat() {
-            this.itemKind = "meat"
+            this.itemKind = "meat";
             this.showModal = true;
         },
         popupModalOthers() {
-            this.itemKind = "others"
+            this.itemKind = "others";
             this.showModal = true;
         },
         closeModal() {
