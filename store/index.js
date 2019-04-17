@@ -1,4 +1,5 @@
-import Vuex from 'vuex'
+import Vuex from 'vuex';
+import firebase from '~/utils/firebase';
 
 const createStore = () => {
    return new Vuex.Store({
@@ -6,42 +7,27 @@ const createStore = () => {
       state: () => ({
          auth: {},
          itemList: {
-             vegetable: [
-                {
-                   name: 'りんご',
-                   price: '129'
-                },
-                {
-                  name: 'りんご',
-                  price: '129'
-               }
-             ],
-             meat: [
-               {
-                  name: '豚バラ',
-                  price: '129'
-               }
-             ],
-             others: [
-               {
-                  name: '牛乳',
-                  price: '129'
-               }
-             ]
+             vegetable: [],
+             meat: [],
+             others: []
          },
       }),
       mutations: {
         setAuth(state, payload) {
-             state.auth = {
-                 uid: payload.uid,
-                 userName: payload.userName
-             }
+         state.auth = {
+            uid: payload.uid,
+            userName: payload.userName
+         }
+        },
+        updateItemList(state, payload) {
+           state.itemList = payload;
         },
         setItemVegetable(state, payload) {
            state.itemList.vegetable.push({
               name: payload.name,
               price: payload.price
-            })
+            });
+            // this.updateItemList();
         },
         setItemMeat(state, payload) {
          state.itemList.meat.push({
@@ -57,7 +43,6 @@ const createStore = () => {
          },
          deleteItemCard(state, payload) {
             state.itemList[payload.itemKind].splice(payload.index, 1);
-            // console.log(state.itemList[payload.itemKind]);
          }
       },
       actions: {
@@ -65,22 +50,30 @@ const createStore = () => {
              store.commit('setAuth', payload);
          },
          // 野菜をセット
-         setItemVegetable(store, payload) {
+         async setItemVegetable(store, payload) {
             store.commit('setItemVegetable', payload);
+            await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
          },
          // お肉・お魚をセット
-         setItemMeat(store, payload) {
+         async setItemMeat(store, payload) {
             store.commit('setItemMeat', payload);
+            await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
          },
-         // その他
-         setItemOthers(store, payload) {
-            store.commit('setItemOthers', payload);
-         },
-         deleteItemCard(store, payload) {
-            // console.log(payload);
-            // console.log(index);
+         // // その他
+         // async setItemOthers(store, payload) {
+         //    store.commit('setItemOthers', payload);
+         //    await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
+         // },
+         async deleteItemCard(store, payload) {
             store.commit('deleteItemCard', payload);
-            // console.log(payload);
+            await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
+         },
+         // アイテムリストを更新する
+         async updateItemList(store, payload) {
+            console.log('更新');
+            console.log(payload);
+            store.commit('updateItemList', payload);
+            await firebase.app().functions('asia-northeast1').httpsCallable('setData')(payload);
          }
       }
    })

@@ -50,6 +50,8 @@ import { mapState } from 'vuex';
 import Itemlist from '~/components/Itemlist';
 import Popupmodal from '~/components/PopupModal';
 import clonedeep from 'lodash.clonedeep';
+import firebase from '~/utils/firebase.js';
+
   export default {
     components: {
         Itemlist,
@@ -59,8 +61,8 @@ import clonedeep from 'lodash.clonedeep';
         return {
             drawer: null,
             showModal: false,
-            // itemList: {},
-            itemKind: ""
+            itemKind: '',
+            database: null
         }
     },
     props: {
@@ -90,7 +92,6 @@ import clonedeep from 'lodash.clonedeep';
         },
         addItemToStore() {
             this.showModal = false;
-            console.log('追加OK');
         },
         toHome() {
             console.log('Go to Home.');
@@ -99,9 +100,20 @@ import clonedeep from 'lodash.clonedeep';
             console.log('Go to Contact.');
         }
     },
-    beforeMount() {
-      this.copiedItemList = clonedeep(this.itemList);
-    }
+    async fetch({ store }) {
+    const val = await firebase.app().functions('asia-northeast1').httpsCallable('getData')();
+    console.log(val.data);
+      if(val.data){
+         store.dispatch('updateItemList', val.data);
+      }else{
+         val.data = {
+            vegetable: [],
+            meat: [],
+            others: []
+         }
+         store.dispatch('updateItemList', val.data);
+      }
+  }
   }
 </script>
 
