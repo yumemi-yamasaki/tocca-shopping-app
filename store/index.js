@@ -59,11 +59,11 @@ const createStore = () => {
             store.commit('setItemMeat', payload);
             await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
          },
-         // // その他
-         // async setItemOthers(store, payload) {
-         //    store.commit('setItemOthers', payload);
-         //    await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
-         // },
+         // その他
+         async setItemOthers(store, payload) {
+            store.commit('setItemOthers', payload);
+            await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
+         },
          async deleteItemCard(store, payload) {
             store.commit('deleteItemCard', payload);
             await firebase.app().functions('asia-northeast1').httpsCallable('setData')(store.state.itemList);
