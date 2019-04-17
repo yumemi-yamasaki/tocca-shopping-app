@@ -118,6 +118,9 @@ import firebase from '~/utils/firebase.js';
 </script>
 
 <style>
+.application--wrap {
+  background: #fff !important;
+}
 p {
     margin: 0;
 }
